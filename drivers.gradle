@@ -1,0 +1,31 @@
+task deleteJarsInDriversDir(type: Delete) {
+  delete fileTree('Drivers') {
+    include '**/*.jar'
+  }
+}
+
+import java.nio.file.Path
+import java.nio.file.Paths
+def downloadFile = { remoteUrl, localDir ->
+  Path outFile = Paths.get(localDir).resolve("${remoteUrl.tokenize('/')[-1]}")
+  outFile.toFile().withOutputStream { out ->
+    new URL(remoteUrl).withInputStream { from ->
+      out << from
+    }
+  }
+}
+
+task downloadJarsIntoDriversDir {
+    doLast {
+      downloadFile('https://github.com/kazurayam/junit4ks/releases/download/1.6/junit4ks-all.jar', 'Drivers')
+      downloadFile('https://github.com/kazurayam/webdriverfactory4ks/releases/download/0.2.0/webdriverfactory4ks.jar', 'Drivers')
+    }
+}
+
+task drivers {
+  dependsOn 'deleteJarsInDriversDir'
+  dependsOn 'downloadJarsIntoDriversDir'
+  tasks.findByName('downloadJarsIntoDriversDir').mustRunAfter 'deleteJarsInDriversDir'
+}
+
+defaultTasks 'drivers'

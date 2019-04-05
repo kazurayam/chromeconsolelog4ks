@@ -1,0 +1,2 @@
+[0405/151518.959:ERROR:file_io_win.cc(161)] CreateFile C:\Users\qcq0264\AppData\Local\Temp\scoped_dir2980_16988\Crashpad\settings.dat: 指定されたファイルが見つかりません。 (0x2)
+[0405/160319.073:ERROR:file_io_win.cc(161)] CreateFile C:\Users\qcq0264\AppData\Local\Temp\scoped_dir18336_8233\Crashpad\settings.dat: 指定されたファイルが見つかりません。 (0x2)
